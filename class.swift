@@ -1,4 +1,14 @@
+import Foundation
+
+
 var points:Int = 0
+
+//List of suggestions
+var suggestionsName: [String] = ["Empire State Building","Sydney Opera","Burj Dubai","The Shard", "Building1","Building2","Building3"]
+
+let randomNumber = Int(arc4random_uniform(UInt32(suggestionsName.count)))
+var suggestion:String = suggestionsName[randomNumber]
+print(suggestion)
 
 public class Question {
     let photoTitle:String
@@ -59,7 +69,7 @@ public func showPoints(){
 }
 
 //Instantiate a question for Eiffel Tower
-let q = Question(photoTitle:"Eiffel Tower", answerName:"Eiffel Tower", answerLocation:"Paris", answerArchitect:"Eiffel")
+let q = Question(photoTitle:"Eiffel Tower picture", answerName:"Eiffel Tower", answerLocation:"Paris", answerArchitect:"Eiffel")
 
 print(q.photoTitle)
 //show result for name answer
