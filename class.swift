@@ -6,15 +6,24 @@ import Foundation
 //List of suggestions
 var suggestionsName: [String] = ["Empire State Building","Sydney Opera","Burj Dubai","The Shard", "Building1","Building2","Building3"]
 
-let randomNumber = Int(arc4random_uniform(UInt32(suggestionsName.count)))
-var suggestion:String = suggestionsName[randomNumber]
-print(suggestion)
+
 
 public class Game {
     var points:Int = 0
     //Initializer
-    public init(points:Int? = 0) {
+    public init(points:Int) {
         self.points = points
+    }
+    
+    public func showPoints(){
+    print("You have",self.points,"points.")
+    }
+    
+    public func listRandomOptions(){
+        //let randomNumber = Int(arc4random(UInt32(suggestionsName.count)))
+        let randomNumber = 1
+        let suggestion:String = suggestionsName[randomNumber]
+        print(suggestion)
     }
 }
 
@@ -24,6 +33,8 @@ public class Collection {
     
      public init(collectionName:String, listOfQuestions:[Question]? = nil) {
        //TODO
+       self.collectionName = collectionName
+       self.listOfQuestions = listOfQuestions
     }
     
 }
@@ -82,22 +93,24 @@ public func addPoints(morepoints:Int){
     game.points += morepoints
 }
 
-public func showPoints(){
-    print("You have",points,"points.")
-}
+
 
 //Start a new game
 let game = Game(points:0)
 
 //Instantiate a question for Eiffel Tower
-let q = Question(photoTitle:"Eiffel Tower picture", answerName:"Eiffel Tower", answerLocation:"Paris", answerArchitect:"Eiffel")
+let q = Question(photoTitle:"Eiffel Tower picture", answerName:"Eiffel Tower", answerLocation:"Paris", answerArchitect:"Gustav Eiffel")
 
-print(q.photoTitle)
+//Show picture to guess
+print("Guess: ",q.photoTitle)
+
+//show 4 random options
+game.listRandomOptions()
+
 //show result for name answer
 q.verifyAnswerName("Eiffel Tower")
 //show result for the location
 q.verifyAnswerLocation("Paris")
 //show result for the architect
-q.verifyAnswerArchitect("Gustav Eiffel")
-showPoints()
-
+q.verifyAnswerArchitect("Gustav")
+game.showPoints()
