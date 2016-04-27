@@ -19,20 +19,13 @@ public class Game {
     print("You have",self.points,"points.")
     }
     
-    public func listRandomOptions(){
-        //let randomNumber = Int(arc4random(UInt32(suggestionsName.count)))
-        let randomNumber = 1
-        let suggestion:String = suggestionsName[randomNumber]
-        print(suggestion)
-    }
 }
 
 public class Collection {
     let collectionName:String
-    var listOfQuestions: [Question]?
+    var listOfQuestions: [Question]
     
-     public init(collectionName:String, listOfQuestions:[Question]? = nil) {
-       //TODO
+     public init(collectionName:String, listOfQuestions:[Question]) {
        self.collectionName = collectionName
        self.listOfQuestions = listOfQuestions
     }
@@ -87,6 +80,15 @@ public class Question {
             return false
         }
     }
+    
+    public func listRandomOptions(){
+        for i in 0 ... 3 {
+            //let randomNumber = Int(arc4random(UInt32(suggestionsName.count)))
+            let randomNumber = i
+            let suggestion:String = suggestionsName[randomNumber]
+            print(suggestion)
+        }
+    }
 }
 
 public func addPoints(morepoints:Int){
@@ -98,6 +100,8 @@ public func addPoints(morepoints:Int){
 //Start a new game
 let game = Game(points:0)
 
+
+
 //Instantiate a question for Eiffel Tower
 let q = Question(photoTitle:"Eiffel Tower picture", answerName:"Eiffel Tower", answerLocation:"Paris", answerArchitect:"Gustav Eiffel")
 
@@ -105,7 +109,7 @@ let q = Question(photoTitle:"Eiffel Tower picture", answerName:"Eiffel Tower", a
 print("Guess: ",q.photoTitle)
 
 //show 4 random options
-game.listRandomOptions()
+q.listRandomOptions()
 
 //show result for name answer
 q.verifyAnswerName("Eiffel Tower")
@@ -114,3 +118,9 @@ q.verifyAnswerLocation("Paris")
 //show result for the architect
 q.verifyAnswerArchitect("Gustav")
 game.showPoints()
+
+//Instantiate a question for Big Ben
+let q2 = Question(photoTitle:"Big Ben", answerName:"Big Ben", answerLocation:"London")
+
+let classicsCollection = Collection(collectionName:"Architecture Classics",listOfQuestions:[q,q2])
+
