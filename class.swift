@@ -82,12 +82,16 @@ public class Question {
     }
     
     public func listRandomOptions(){
-        for i in 0 ... 3 {
+        var suggestions:[String] = [self.answerName]
+        for i in 0 ... 2 {
             //let randomNumber = Int(arc4random(UInt32(suggestionsName.count)))
             let randomNumber = i
             let suggestion:String = suggestionsName[randomNumber]
-            print(suggestion)
+            suggestions.append(suggestion)
         }
+        //let shuffledSuggestions:[String] = shuffleArray(suggestions)
+        //print(shuffledSuggestions)
+        print(suggestions)
     }
 }
 
@@ -95,7 +99,21 @@ public func addPoints(morepoints:Int){
     game.points += morepoints
 }
 
-
+/*
+public func shuffleArray<T>(array: Array<T>) -> Array<T>
+{
+  for var index = array.count - 1; index > 0; index--
+  {
+    // Random int from 0 to index-1
+    var j = Int(arc4random_uniform(UInt32(index-1)))
+ 
+    // Swap two array elements
+    // Notice '&' required as swap uses 'inout' parameters
+    swap(&array[index], &array[j])
+  }
+  return array
+}
+*/
 
 //Start a new game
 let game = Game(points:0)
@@ -123,4 +141,3 @@ game.showPoints()
 let q2 = Question(photoTitle:"Big Ben", answerName:"Big Ben", answerLocation:"London")
 
 let classicsCollection = Collection(collectionName:"Architecture Classics",listOfQuestions:[q,q2])
-
