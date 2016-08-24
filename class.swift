@@ -1,3 +1,7 @@
+//  Write some awesome Swift code, or import libraries like "Foundation",
+//  "Dispatch", or "Glibc"
+
+
 import Foundation
 
 
@@ -51,7 +55,7 @@ public class Question {
     public func verifyAnswerName(name:String) -> Bool {
         if self.answerName == name{
             print("Correct answer, you found the building name!")
-            addPoints(10)
+            addPoints(morepoints:10)
             return true
         } else {
             print("Wrong answer!")
@@ -62,7 +66,7 @@ public class Question {
     public func verifyAnswerLocation(location:String) -> Bool {
         if self.answerLocation == location {
             print("Correct answer, you found the location/city!")
-            addPoints(10)
+            addPoints(morepoints:10)
             return true
         } else {
             print("Wrong answer!")
@@ -73,7 +77,7 @@ public class Question {
     public func verifyAnswerArchitect(architect:String) -> Bool {
         if self.answerArchitect == architect {
             print("Correct answer, you found the architect!")
-            addPoints(20)
+            addPoints(morepoints:20)
             return true
         } else {
             print("Wrong answer!")
@@ -119,7 +123,6 @@ public func shuffleArray<T>(array: Array<T>) -> Array<T>
 let game = Game(points:0)
 
 
-
 //Instantiate a question for Eiffel Tower
 let q = Question(photoTitle:"Eiffel Tower picture", answerName:"Eiffel Tower", answerLocation:"Paris", answerArchitect:"Gustav Eiffel")
 
@@ -130,11 +133,11 @@ print("Guess: ",q.photoTitle)
 q.listRandomOptions()
 
 //show result for name answer
-q.verifyAnswerName("Eiffel Tower")
+q.verifyAnswerName(name:"Eiffel Tower")
 //show result for the location
-q.verifyAnswerLocation("Paris")
+q.verifyAnswerLocation(location:"Paris")
 //show result for the architect
-q.verifyAnswerArchitect("Gustav")
+q.verifyAnswerArchitect(architect:"Gustav")
 game.showPoints()
 
 //Instantiate a question for Big Ben
