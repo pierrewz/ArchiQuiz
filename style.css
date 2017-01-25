@@ -1,0 +1,6 @@
+.answerField{
+	border-color:red;
+}
+.answerField.solved{
+	border-color:green;
+}

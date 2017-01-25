@@ -1,0 +1,231 @@
+<!-- DOCTYPE HTML -->
+<html>
+<head>
+<title>Your First React Project</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="content"></div>
+<script src="https://fb.me/react-0.14.6.js"></script>
+<script src="https://fb.me/react-dom-0.14.6.js"></script>
+<script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
+<script type="text/jsx">
+
+/*Add your React code here*/
+
+	var DATA = {
+		questions:[
+			{
+				photoTitle:"The Statue of Liberty",
+				photoURL:"http://lorempixel.com/200/200/x",
+				answerName:"The Statue of Liberty",
+				answerLocation:"New York",
+				answerArchitect:""
+			},
+			{
+				photoTitle:"Eiffel Tower",
+				photoURL:"http://lorempixel.com/200/200/x",
+				answerName:"Eiffel Tower",
+				answerLocation:"Paris",
+				answerArchitect:""
+			},
+			{
+				photoTitle:"Big Ben",
+				photoURL:"http://lorempixel.com/200/200/x",
+				answerName:"Big Ben",
+				answerLocation:"London",
+				answerArchitect:""
+			},
+			{
+				photoTitle:"Burj Dubai",
+				photoURL:"http://lorempixel.com/200/200/x",
+				answerName:"Burj Dubai",
+				answerLocation:"Dubai",
+				answerArchitect:""
+			}
+		]
+	};
+	
+	function verifyAnswer (proposal, answer){
+		var correct = false;
+		if(proposal.toUpperCase() == answer.toUpperCase()){
+			correct = true;
+		}
+		return correct
+	};
+	function getRandomIntInclusive(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+	
+		
+		
+	var App = React.createClass({
+		getInitialState: function() {
+			return {
+			  points: 0,
+			  questionid:0
+			}
+		},
+		
+		addPoints: function(newpoints){
+			this.setState({points: this.state.points + newpoints})
+		},
+		
+		showNext: function(){
+			this.setState({questionid: this.state.questionid + 1})
+			alert(this.state.questionid)
+		},
+		
+		returnRandomNames(){
+			var fourRandomNames = [];
+			while(fourRandomNames.length < 4){
+				var r = getRandomIntInclusive(0,this.props.profileData.questions.length-1);
+				var rname = this.props.profileData.questions[r].answerName
+				if(fourRandomNames.indexOf(rname) > -1) continue;
+				fourRandomNames[fourRandomNames.length] = rname;
+			}
+			alert (fourRandomNames);
+			return fourRandomNames;
+		},
+		
+		render: function(){
+			var question = this.props.profileData.questions[this.state.questionid]
+			this.returnRandomNames()
+			return (
+				<div>	
+					<Points points={this.state.points}/>
+					<QuestionContainer key={this.state.questionid} question={question} addPoints={this.addPoints} showNext={this.showNext}/> 
+				</div>
+			);
+		}
+	});
+	
+	var Points = React.createClass({
+		
+		render: function(){
+			return (
+				<div>Points: {this.props.points}</div>
+			)
+		}
+	});
+		
+	var QuestionContainer = React.createClass({
+		getInitialState: function() {
+			return {
+				nameSolved: false,
+				locationSolved:false
+			}
+		},
+		
+		setNameSolved: function(){
+			this.setState({nameSolved: true})
+		},
+		
+		setLocationSolved: function(){
+			this.setState({locationSolved: true})
+		},
+		
+		render: function(){
+			return (
+				<div>
+					<Photo 
+						photoTitle={this.props.question.photoTitle}
+						photoURL={this.props.question.photoURL}/>
+					<AnswerName answerName={this.props.question.answerName} addPoints={this.props.addPoints} solved={this.state.nameSolved} setNameSolved={this.setNameSolved}/>
+					<AnswerLocation answerLocation={this.props.question.answerLocation} addPoints={this.props.addPoints} solved={this.state.locationSolved} setLocationSolved={this.setLocationSolved}/>
+					{ (this.state.nameSolved && this.state.locationSolved) ? <NextQuestion showNext={this.props.showNext}/>: null }
+				</div>
+			);
+		}
+	})
+	
+	var Photo = React.createClass({
+		render: function(){
+			return (
+				<div>
+					<h3>{this.props.photoTitle}</h3>
+					<img src={this.props.photoURL} />
+				</div>
+			);
+		}
+	});
+	
+	var AnswerName = React.createClass({
+		getInitialState: function() {
+			return {
+			  value: ""
+			}
+		},
+		
+		handleChange: function(event) {
+			this.setState({value: event.target.value});
+			if(verifyAnswer(event.target.value, this.props.answerName)){
+				this.props.addPoints(10);
+				this.setState({value: this.props.answerName});
+				this.props.setNameSolved()
+			}
+		},
+		
+		render: function(){
+			var className = "answerField";
+			if (this.props.solved) {
+			  className += " solved";
+			}
+			return (
+				<div>
+					<label>Name:
+					<input type="text" value={this.state.value} onChange={this.handleChange} disabled={this.props.solved} className={className}/>
+					</label>
+				</div>
+			);
+		}
+		
+	});
+	var AnswerLocation = React.createClass({
+		getInitialState: function() {
+			return {
+			  value: ""
+			}
+		},
+		
+		handleChange: function(event) {
+			this.setState({value: event.target.value});
+			if(verifyAnswer(event.target.value, this.props.answerLocation)){
+				this.props.addPoints(20);
+				this.setState({value: this.props.answerLocation});
+				this.props.setLocationSolved();
+			}
+		},
+		
+		render: function(){
+			var className = "answerField";
+			if (this.props.solved) {
+			  className += " solved";
+			}
+			return (
+				<div>
+					<label>Location:</label>
+					<input type="text" value={this.state.value} onChange={this.handleChange} disabled={this.props.solved} className={className}></input>
+				</div>
+			);
+		}
+	});
+	
+	var NextQuestion = React.createClass({
+		onClickNext: function(event){
+			this.props.showNext();
+		},
+		
+		render: function(){
+			return (
+			<input type="submit" value="Next" onClick={this.onClickNext}/>
+			);
+		}
+	})
+	
+	ReactDOM.render(<App profileData={DATA} />,document.getElementById('content'));
+</script>
+</body>
+</html>
