@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>API test</title>
+<script src="assets/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<script>
+ var json = {
+   "questions":[
+     {"id":1,"photoTitle":"The Statue of Liberty","answerName":"The Statue of Liberty","answerLocation":"New York","answerArchitect":""},
+   {"id":2,"photoTitle":"Eiffel Tower","answerName":"Eiffel Tower","answerLocation":"Paris","answerArchitect":"Gustave Eiffel"},
+   {"id":3,"photoTitle":"The Taj Mahal","answerName":"The Taj Mahal","answerLocation":"Agra","answerArchitect":""},
+   {"id":4,"photoTitle":"Big Ben","answerName":"Big Ben","answerLocation":"London","answerArchitect":""},
+   {"id":5,"photoTitle":"The Burj al Arab Hotel","answerName":"The Burj al Arab Hotel","answerLocation":"Dubai","answerArchitect":""},
+   {"id":6,"photoTitle":"Tower of Pisa","answerName":"Tower of Pisa","answerLocation":"Pisa","answerArchitect":""},
+   {"id":7,"photoTitle":"Christ the Redeemer (statue)","answerName":"Christ the Redeemer (statue)","answerLocation":"Rio de Janeiro","answerArchitect":""},
+   {"id":8,"photoTitle":"Mont St. Michel","answerName":"Mont St. Michel","answerLocation":"","answerArchitect":""},
+   {"id":9,"photoTitle":"Brandenburg Gate","answerName":"Brandenburg Gate","answerLocation":"Berlin","answerArchitect":""},
+   {"id":10,"photoTitle":"Acropolis ","answerName":"Acropolis ","answerLocation":"Athens","answerArchitect":""},
+   {"id":11,"photoTitle":"Sagrada Familia","answerName":"Sagrada Familia","answerLocation":"Barcelona","answerArchitect":""},
+   {"id":12,"photoTitle":"United States Capitol","answerName":"United States Capitol","answerLocation":"Washington DC","answerArchitect":""},
+   {"id":13,"photoTitle":"Golden Gate Bridge","answerName":"Golden Gate Bridge","answerLocation":"San Francisco","answerArchitect":""},
+   {"id":14,"photoTitle":"Sydney Opera House","answerName":"Sydney Opera House","answerLocation":"Sydney","answerArchitect":"Jørn Utzon"},
+   {"id":15,"photoTitle":"The Colosseum","answerName":"The Colosseum","answerLocation":"Rome","answerArchitect":""},
+   {"id":16,"photoTitle":"Millau Bridge","answerName":"Millau Bridge","answerLocation":"Millau","answerArchitect":"Norman Foster"},
+   {"id":17,"photoTitle":"The Empire State Building","answerName":"The Empire State Building","answerLocation":"New York","answerArchitect":""},
+   {"id":18,"photoTitle":"The Louvre Pyramid","answerName":"The Louvre Pyramid","answerLocation":"Paris","answerArchitect":""},
+   {"id":19,"photoTitle":"CN Tower","answerName":"CN Tower","answerLocation":"Toronto","answerArchitect":""},
+   {"id":20,"photoTitle":"Shanghai World Financial Center","answerName":"Shanghai World Financial Center","answerLocation":"Shanghai","answerArchitect":"Kohn Pedersen Fox"},
+   {"id":21,"photoTitle":"Taipei 101","answerName":"Taipei 101","answerLocation":"Taiper","answerArchitect":""},
+   {"id":22,"photoTitle":"Petronas Towers","answerName":"Petronas Towers","answerLocation":"Kuala Lumpur","answerArchitect":""},
+   {"id":23,"photoTitle":"Willis Tower","answerName":"Willis Tower","answerLocation":"Chicago","answerArchitect":""},
+   {"id":24,"photoTitle":"Chrysler Building","answerName":"Chrysler Building","answerLocation":"New York","answerArchitect":""},
+   {"id":25,"photoTitle":"One World Trade Center","answerName":"One World Trade Center","answerLocation":"New York","answerArchitect":"Daniel Libeskind"},
+   {"id":26,"photoTitle":"National Congress of Brazil","answerName":"National Congress of Brazil","answerLocation":"Brasilia","answerArchitect":"Oscar Niemeyer"},
+   {"id":27,"photoTitle":"Fallingwater","answerName":"Fallingwater","answerLocation":"Pennsylvania","answerArchitect":"Frank Lloyd Wright"},
+   {"id":28,"photoTitle":"Walt Disney Concert Hall","answerName":"Walt Disney Concert Hall","answerLocation":"Los Angeles","answerArchitect":"Frank Gehry"},
+   {"id":29,"photoTitle":"Guggenheim Museum ","answerName":"Guggenheim Museum ","answerLocation":"Bilbao","answerArchitect":"Frank Gehry"},
+   {"id":30,"photoTitle":"Millennium Bridge, London","answerName":"Millennium Bridge, London","answerLocation":"London","answerArchitect":"Norman Foster"},
+   {"id":31,"photoTitle":"Reichstag building","answerName":"Reichstag building","answerLocation":"Berlin","answerArchitect":"Norman Foster"},
+   {"id":32,"photoTitle":"CCTV Headquarters","answerName":"CCTV Headquarters","answerLocation":"Beijing","answerArchitect":"Rem Koolhaas"},
+   {"id":33,"photoTitle":"De Rotterdam","answerName":"De Rotterdam","answerLocation":"Rotterdam","answerArchitect":"Rem Koolhaas"},
+   {"id":34,"photoTitle":"Allianz Arena","answerName":"Allianz Arena","answerLocation":"Munich","answerArchitect":"Herzog & de Meuron"},
+   {"id":35,"photoTitle":"Beijing National Stadium","answerName":"Beijing National Stadium","answerLocation":"Beijing","answerArchitect":"Herzog & de Meuron"},
+   {"id":36,"photoTitle":"Torre Agbar","answerName":"Torre Agbar","answerLocation":"Barcelona","answerArchitect":"Jean Nouvel"},
+   {"id":37,"photoTitle":"The Shard","answerName":"The Shard","answerLocation":"London","answerArchitect":"Renzo Piano"},
+   {"id":38,"photoTitle":"World Trade Center Transportation Hub","answerName":"World Trade Center Transportation Hub","answerLocation":"New York","answerArchitect":"Santiago Calatrava"},
+   {"id":39,"photoTitle":"Lloyd's building","answerName":"Lloyd's building","answerLocation":"London","answerArchitect":"Richard Rogers"},
+   {"id":40,"photoTitle":"Pompidou Centre","answerName":"Pompidou Centre","answerLocation":"Paris","answerArchitect":"Richard Rogers"},
+   {"id":41,"photoTitle":"Guggenheim Museum","answerName":"Guggenheim Museum","answerLocation":"New York","answerArchitect":"Frank Lloyd Wright"},
+   {"id":42,"photoTitle":"Heydar Aliyev Center","answerName":"Heydar Aliyev Center","answerLocation":"Baku","answerArchitect":"Zaha Hadid"},
+   {"id":43,"photoTitle":"Burj Khalifa","answerName":"Burj Khalifa","answerLocation":"Dubai","answerArchitect":"N/A"},
+   {"id":44,"photoTitle":"Shanghai Tower","answerName":"Shanghai Tower","answerLocation":"Shanghai","answerArchitect":"Gensler"},
+   {"id":45,"photoTitle":"Red Square","answerName":"Red Square","answerLocation":"Moscow","answerArchitect":""},
+   {"id":46,"photoTitle":"Sydney Harbour Bridge","answerName":"Sydney Harbour Bridge","answerLocation":"Sydney","answerArchitect":""},
+   {"id":47,"photoTitle":"The Dancing house","answerName":"The Dancing house","answerLocation":"Prague","answerArchitect":""},
+   {"id":48,"photoTitle":"Ronchamp chapel","answerName":"Ronchamp chapel","answerLocation":"Ronchamp","answerArchitect":"Le Corbusier"},
+   {"id":49,"photoTitle":"Vitra haus","answerName":"Vitra haus","answerLocation":"Weil-am-Rhein","answerArchitect":"Herzog & de Meuron"},
+   {"id":50,"photoTitle":"Elbphilharmonie","answerName":"Elbphilharmonie","answerLocation":"Hamburg","answerArchitect":"Herzog & de Meuron"}
+ ]
+};
+
+  var searchUrl = 'https://en.wikipedia.org/w/api.php';
+
+  $.map(json.questions, function(question) {
+
+  var toSearch = question.photoTitle;
+  // Using jQuery
+  $.ajax( {
+      url: searchUrl,
+      dataType: 'json',
+      data: {
+                //main parameters
+                action: 'query',
+                format: 'json',
+                origin: '*',
+                generator: 'search',
+                    //parameters for generator
+                    gsrsearch: toSearch,
+                    gsrnamespace: 0,
+                    gsrlimit: 1,
+
+                prop: 'extracts|pageimages',
+                    //parameters for extracts
+                    exchars: 200,
+                    exlimit: 'max',
+                    explaintext: true,
+                    exintro: true,
+
+                    //parameters for pageimages
+                    piprop: 'thumbnail',
+                    pilimit: 'max',
+                    pithumbsize: 200
+            },
+      success: function(data) {
+        console.log(data);
+        var pages = data.query.pages;
+        var ul = $("#content");
+        $.map(pages, function (page) {
+          var imageurl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png";
+          if(page.thumbnail) {imageurl = page.thumbnail.source;}
+          ul.append("<li>"+ question.id + ";" + page.title + ";" + imageurl + "</li>");
+        });
+      }
+  } );
+
+  });
+</script>
+
+
+<ul id="content">
+</ul>
+
+</body>
