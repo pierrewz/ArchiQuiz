@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
 		labels:["Name","Location","Architect"],
 		questions:[
@@ -24,30 +23,3 @@
 			}
 		]
 	}
-=======
-{
-		labels:["Name","Location","Architect"],
-		questions:[
-			{
-				photoTitle:"The Statue of Liberty",
-				photoURL:"http://lorempixel.com/200/200/a",
-				answers:[{label:"Name",value:"The Statue of Liberty"},{label:"Location",value:"New York"}]
-			},
-			{
-				photoTitle:"Eiffel Tower",
-				photoURL:"http://lorempixel.com/200/200/a",
-				answers:[{label:"Name",value:"Eiffel Tower"},{label:"Location",value:"Paris"},{label:"Architect",value:"Gustav Eiffel"}]
-			},
-			{
-				photoTitle:"Big Ben",
-				photoURL:"http://lorempixel.com/200/200/a",
-				answers:[{label:"Name",value:"Big Ben"},{label:"Location",value:"London"},{label:"Architect",value:"Archi"}]
-			},
-			{
-				photoTitle:"Burj Dubai",
-				photoURL:"http://lorempixel.com/200/200/a",
-				answers:[{label:"Name",value:"Burj Dubai"},{label:"Location",value:"Dubai"}]
-			}
-		]
-	}
->>>>>>> 8b965c6060d5dd157c89a7c2d9d112b90a86bf88
