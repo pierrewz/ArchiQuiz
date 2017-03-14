@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- DOCTYPE HTML -->
 <html>
 <head>
@@ -343,4 +344,351 @@
 	ReactDOM.render(<App />,document.getElementById('content'));
 </script>
 </body>
+=======
+<!-- DOCTYPE HTML -->
+<html>
+<head>
+<title>ArchiQuiz Project</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="content"></div>
+<script src="https://fb.me/react-0.14.6.js"></script>
+<script src="https://fb.me/react-dom-0.14.6.js"></script>
+<script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
+<script src="levenshtein.js"></script>
+
+
+
+<script type="text/jsx">
+
+/*Add your React code here*/
+	var DATA = {
+		labels:["Name","Location","Architect"],
+		questions:[
+			{
+				photoTitle:"The Statue of Liberty",
+				photoURL:"http://lorempixel.com/200/200/a",
+				answers:[{label:"Name",value:"The Statue of Liberty"},{label:"Location",value:"New York"}]
+			},
+			{
+				photoTitle:"Eiffel Tower",
+				photoURL:"http://lorempixel.com/200/200/a",
+				answers:[{label:"Name",value:"Eiffel Tower"},{label:"Location",value:"Paris"},{label:"Architect",value:"Gustav Eiffel"}]
+			},
+			{
+				photoTitle:"Big Ben",
+				photoURL:"http://lorempixel.com/200/200/a",
+				answers:[{label:"Name",value:"Big Ben"},{label:"Location",value:"London"},{label:"Architect",value:"Archi"}]
+			},
+			{
+				photoTitle:"Burj Dubai",
+				photoURL:"http://lorempixel.com/200/200/a",
+				answers:[{label:"Name",value:"Burj Dubai"},{label:"Location",value:"Dubai"}]
+			}
+		]
+	}
+	
+	
+	function findAnswer(table,index,l) { 
+		return table.label == l;
+	}
+
+	function getRandomIntInclusive(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+	
+	function shuffle(array) {
+	  var currentIndex = array.length, temporaryValue, randomIndex;
+
+	  // While there remain elements to shuffle...
+	  while (0 !== currentIndex) {
+
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	  }
+
+	  return array;
+	}
+	
+		
+		
+	var App = React.createClass({
+		getInitialState: function() {
+			return {
+			  data: undefined,
+			  points: 20,
+			  newpoints: 0,
+			  questionid: 0,
+			  quizcompleted: false
+			}
+		},
+		
+		componentDidMount: function() {
+			this.setState({data:DATA});
+
+		},		
+		
+		changePoints: function(newpoints){			
+			if((this.state.points + newpoints) >= 0){
+				this.setState({newpoints: newpoints});
+				this.setState({points: this.state.points + newpoints});
+				return true;
+			} else {
+				return false;
+			}
+		},
+		
+		showNext: function(){
+			if (this.state.questionid + 1 >=  this.state.data.questions.length){
+				this.setState({quizcompleted: true});
+			} else {
+				this.setState({questionid: this.state.questionid + 1});
+				this.setState({newpoints: 0});
+			}
+		},
+		
+		prepareRandomAnswers(label){
+			
+			var currentQuestion = this.state.data.questions[this.state.questionid].answers;
+			var correctAnswer = currentQuestion.find(function(obj){
+				return obj.label === label;
+			}).value;
+
+			var arr = [correctAnswer];
+			while(arr.length < 2){
+				var r = getRandomIntInclusive(0,this.state.data.questions.length-1);
+				var result = this.state.data.questions[r].answers.find(function(obj){
+					return obj.label === label;
+				});
+				if(typeof result == 'undefined') continue;
+				if(arr.indexOf(result.value) > -1) continue;
+				arr[arr.length] = result.value;
+			}
+			arr = shuffle(arr);
+			return arr;
+		},
+		
+		render: function(){
+			if (!this.state.data){
+				return <div>Loading...</div>
+			}
+			var question = this.state.data.questions[this.state.questionid];
+			return (
+				<div className="app">	
+					<Points points={this.state.points} newpoints={this.state.newpoints}/>
+					{(this.state.quizcompleted) ? <Completed /> : <QuestionContainer key={this.state.questionid} question={question} changePoints={this.changePoints} showNext={this.showNext} prepareRandomAnswers={this.prepareRandomAnswers}/>}
+					
+				</div>
+			);
+		}
+	});
+	
+	var Points = React.createClass({
+		
+		render: function(){
+			var newpoints = null;
+			if(this.props.newpoints  > 0){
+				var newpoints = <div className="newpoints-add">+{this.props.newpoints}</div> 
+			} else if(this.props.newpoints < 0){
+				var newpoints = <div className="newpoints-remove">{this.props.newpoints}</div> 
+			} 
+			return (
+				<div>
+					{newpoints}
+					<div className="points">{this.props.points} <img src="blueprint.png" /></div>
+				</div>
+			)
+		}
+	});
+	
+	
+		
+	var QuestionContainer = React.createClass({
+		getInitialState: function() {
+			return {
+				solvedAnswers : [""],
+				showHelp: [""]
+			}
+		},
+		
+		setAnswerSolved: function(label){
+			
+			var arrayvar = this.state.solvedAnswers.slice();
+			arrayvar.push(label);
+			this.setState({ solvedAnswers: arrayvar });
+			
+		},		
+		
+		showHelpOptions: function(label){
+			var help = this.props.changePoints(-10);
+			if(help){
+				var arrayvar = this.state.showHelp.slice();
+				arrayvar.push(label);
+				this.setState({ showHelp: arrayvar });
+			} else {
+				alert("Not enough blueprints!");
+			}
+		},
+		
+				
+		render: function(){
+			
+			var answersList = this.props.question.answers.map(answer => {
+
+				(this.state.solvedAnswers.indexOf(answer.label) >= 0) ? solved = true : solved = false;
+				(this.state.showHelp.indexOf(answer.label) >= 0) ? showHelp = true : showHelp = false;
+				if(!showHelp || solved){
+					var answerDisplay = <Answer key={answer.label} answer={answer} changePoints={this.props.changePoints} solved={solved} setAnswerSolved={this.setAnswerSolved} showHelpOptions={this.showHelpOptions}/>;
+				} else {
+					var proposalsArray = this.props.prepareRandomAnswers(answer.label);
+					var answerDisplay = <Proposal key={answer.label} answer={answer} proposalsArray={proposalsArray} changePoints={this.props.changePoints} setAnswerSolved={this.setAnswerSolved}/>;
+				}
+				return answerDisplay;
+			});
+			
+			return (
+				<div className="questioncontainer">
+					<Photo 
+						photoTitle={this.props.question.photoTitle}
+						photoURL={this.props.question.photoURL}/>
+						{answersList}
+						{ (this.state.solvedAnswers.length >  this.props.question.answers.length) ? <NextQuestion showNext={this.props.showNext}/>: null }
+				</div>
+			);
+		}
+	})
+	
+	var Photo = React.createClass({
+		render: function(){
+			return (
+				<div className="photo">
+					<h3>{this.props.photoTitle}</h3>
+					<img src={this.props.photoURL} />
+				</div>
+			);
+		}
+	});
+	
+	
+	var Answer = React.createClass({
+		getInitialState: function() {
+			return {
+			  value: "",
+			  isclose: false
+			}
+		},
+		
+		verifyAnswer: function (proposal, answer){
+			var correct = false;
+			var l = new Levenshtein(proposal.toUpperCase(),answer.toUpperCase());
+			
+			if(l.distance == 0){
+				correct = true;
+			} else if(l.distance < 3){ //If Levenshtein distance is 1 or 2
+				this.setState({isclose: true});
+			} else {
+				this.setState({isclose: false});
+			}
+			return correct;
+		},
+		
+		handleChange: function(event) {
+			this.setState({value: event.target.value});
+			if(this.verifyAnswer(event.target.value, this.props.answer.value)){
+				this.props.changePoints(20);
+				this.setState({value: this.props.answer.value});
+				this.props.setAnswerSolved(this.props.answer.label);
+			}
+		},
+		
+		onClickHelp: function(event){
+			this.props.showHelpOptions(this.props.answer.label);
+		},
+		
+		render: function(){
+			var className = "answerField";
+			var inputValue = this.state.value;
+			if (this.props.solved) {
+				className += " solved";
+				inputValue = this.props.answer.value;
+			} else if (this.state.isclose){
+				className += " close";
+			}
+			return (
+				<div className="answer">
+					<label>{this.props.answer.label}:</label>
+					<input type="text" value={inputValue} onChange={this.handleChange} disabled={this.props.solved} className={className}/>
+					{ (!this.props.solved) ? <input type="submit" value="Help: 10 BP" onClick={this.onClickHelp}/>: null }
+
+				</div>
+			);
+		}
+		
+	});
+	
+	
+	var Proposal = React.createClass({
+		verifyAnswer: function (proposal, answer){
+			var correct = false;
+			if(proposal.toUpperCase() == answer.toUpperCase()){
+				correct = true;
+			}
+			return correct;
+		},
+	
+		onClickProposal: function(event){
+			if(this.verifyAnswer(event.target.value, this.props.answer.value)){
+				this.props.changePoints(10);
+			} 
+			this.props.setAnswerSolved(this.props.answer.label);
+		},
+			
+		render: function(){
+			const proposals = this.props.proposalsArray.map((prop) =>
+				<input type="submit" key={prop} value={prop} onClick={this.onClickProposal}/>
+			);
+			return (
+				<div>
+					{proposals}
+				</div>
+			);
+		}
+	});
+	
+	
+	var NextQuestion = React.createClass({
+		onClickNext: function(event){
+			this.props.showNext();
+		},
+		
+		render: function(){
+			return (
+			<input type="submit" value="Next" onClick={this.onClickNext}/>
+			);
+		}
+	})
+	
+	var Completed = React.createClass({
+		
+		render: function(){
+			return (
+				<div>Congratulations! You have finished this quiz.</div>
+			)
+		}
+	});
+	
+	ReactDOM.render(<App />,document.getElementById('content'));
+</script>
+</body>
+>>>>>>> 8b965c6060d5dd157c89a7c2d9d112b90a86bf88
 </html>

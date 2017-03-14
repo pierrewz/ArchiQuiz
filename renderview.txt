@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  renderView() {
         switch(this.state.view) {
             case 0:
@@ -26,4 +27,34 @@
     }
     render () {
         return this.renderView()
+=======
+ renderView() {
+        switch(this.state.view) {
+            case 0:
+                return (
+                    <Intro switchView={ this.switchView }
+                           title={ this.state.title }
+                           image={ this.state.image }
+                           description={ this.state.description }/>
+                );
+            case "1":
+                return <Quiz questions={ this.state.questions }
+                             switchView={ this.switchView }
+                             sendResults={ this.sendResults }/>;
+            case "2":
+                return <Finish title="Listo!"
+                               image={ this.state.image }
+                               corrects={this.state.corrects}
+                               inCorrects={this.state.inCorrects}
+                               switchView={ this.switchView }/>
+        }
+    }
+    switchView(key) {
+        this.setState({
+            view: key
+        });
+    }
+    render () {
+        return this.renderView()
+>>>>>>> 8b965c6060d5dd157c89a7c2d9d112b90a86bf88
     }
