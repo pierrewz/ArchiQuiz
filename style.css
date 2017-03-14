@@ -1,0 +1,71 @@
+
+.app{
+	width:50%;
+	margin:0 auto;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.questioncontainer {
+	text-align:center;
+}
+
+@keyframes addpoints {
+   0%   {right:100px;opacity:1;}
+   75%  {right:25px;opacity:1;}
+   100% {right:0px;opacity:0;}
+}
+
+@keyframes removepoints {
+   0%   {right:0px;opacity:1;}
+   75%  {right:75px;opacity:1;}
+   100% {right:100px;opacity:0;}
+}
+
+
+.points{
+	text-align:right;
+}
+
+.newpoints-add{
+	text-align:right;
+	position:relative;
+	animation: addpoints 1s linear;
+	animation-fill-mode: forwards;
+	color:green;
+}	
+
+.newpoints-remove{
+	text-align:right;
+	position:relative;
+	animation: removepoints 1s linear;
+	animation-fill-mode: forwards;
+	color:red;
+}
+
+
+.answer {
+	margin:10px;
+}
+
+.answer label {
+  display: inline-block;
+  width: 90px;
+  text-align: right;
+}​
+
+.answer input {
+  display: inline-block;
+
+}​
+
+.answerField{
+	border-color:red;
+}
+
+.answerField.solved{
+	border-color:green;
+}
+
+.answerField.close{
+	border-color:orange;
+}
