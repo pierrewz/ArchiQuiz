@@ -31,7 +31,7 @@
 	animation: addpoints 1s linear;
 	animation-fill-mode: forwards;
 	color:green;
-}	
+}
 
 .newpoints-remove{
 	text-align:right;
